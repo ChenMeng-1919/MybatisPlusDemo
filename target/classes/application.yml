@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    username: root
+    password: 123654
+    url: jdbc:mysql://localhost:3306/mybatis_plus?useSSL=false&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+mybatis-plus:
+  configuration:
+    auto-mapping-behavior: partial #只对非嵌套的 resultMap 进行自动映射
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #sql监控
+    map-underscore-to-camel-case: true #开启自动驼峰命名规则映射
+  mapper-locations: classpath:/mapper/**/*.xml #指定mapper.xml路径
+  global-config:
+      db-config:
+        id-type: auto #全局默认主键类型设置为自增
