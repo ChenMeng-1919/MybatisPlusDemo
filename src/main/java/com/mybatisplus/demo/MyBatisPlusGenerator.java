@@ -24,18 +24,29 @@ import java.util.Scanner;
 public class MyBatisPlusGenerator {
 
     public static void main(String[] args) {
-        String projectPath = System.getProperty("user.dir") + "/mall-tiny-plus";
+        //获取当前父项目本地路径
+        String projectPath = System.getProperty("user.dir");
+        //通过控制台读取模块名称
         String moduleName = scanner("模块名");
+        //通过控制台读取表名
         String[] tableNames = scanner("表名，多个英文逗号分割").split(",");
         // 代码生成器
         AutoGenerator autoGenerator = new AutoGenerator();
+        //1、进行全局配置
         autoGenerator.setGlobalConfig(initGlobalConfig(projectPath));
+        //2、进行数据源配置
         autoGenerator.setDataSource(initDataSourceConfig());
+        //3、进行包配置
         autoGenerator.setPackageInfo(initPackageConfig(moduleName));
+        //4、自定义属性注入
         autoGenerator.setCfg(initInjectionConfig(projectPath, moduleName));
+        //5、自定义代码模板
         autoGenerator.setTemplate(initTemplateConfig());
+        //6、进行数据库表配置
         autoGenerator.setStrategy(initStrategyConfig(tableNames));
+        //7、自定义模板引擎
         autoGenerator.setTemplateEngine(new VelocityTemplateEngine());
+        //执行生成器
         autoGenerator.execute();
     }
 
@@ -59,10 +70,15 @@ public class MyBatisPlusGenerator {
      */
     private static GlobalConfig initGlobalConfig(String projectPath) {
         GlobalConfig globalConfig = new GlobalConfig();
+        //设置生成文件的输出目录
         globalConfig.setOutputDir(projectPath + "/src/main/java");
+        //设置作者
         globalConfig.setAuthor("macro");
+        //设置是否打开输出目录
         globalConfig.setOpen(false);
+        //设置开启 swagger2 模式
         globalConfig.setSwagger2(true);
+        //
         globalConfig.setBaseResultMap(true);
         globalConfig.setFileOverride(true);
         globalConfig.setDateType(DateType.ONLY_DATE);

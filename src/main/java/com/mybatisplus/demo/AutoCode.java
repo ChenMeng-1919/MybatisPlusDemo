@@ -33,6 +33,7 @@ public class AutoCode {
         gc.setFileOverride(true); // 是否覆盖
         gc.setServiceName("%sService"); // 去Service的I前缀
         gc.setDateType(DateType.ONLY_DATE);
+        gc.setBaseResultMap(true);
         mpg.setGlobalConfig(gc);
         //2、设置数据源
         DataSourceConfig dsc = new DataSourceConfig();
