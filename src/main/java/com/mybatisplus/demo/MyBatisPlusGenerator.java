@@ -73,20 +73,28 @@ public class MyBatisPlusGenerator {
         //设置生成文件的输出目录
         globalConfig.setOutputDir(projectPath + "/src/main/java");
         //设置作者
-        globalConfig.setAuthor("macro");
+        globalConfig.setAuthor("cm");
         //设置是否打开输出目录
         globalConfig.setOpen(false);
         //设置开启 swagger2 模式
-        globalConfig.setSwagger2(true);
-        //
+        globalConfig.setSwagger2(false);
+        //在com.mybatisplus.demo.autocode.blog.mapper.xml生成通用查询映射结果
         globalConfig.setBaseResultMap(true);
+        //是否覆盖已有文件
         globalConfig.setFileOverride(true);
+        //时间类型对应策略
         globalConfig.setDateType(DateType.ONLY_DATE);
-        globalConfig.setEntityName("%s");
+        //实体命名方式
+        globalConfig.setEntityName("%sEntity");
+        //mapper 命名方式
         globalConfig.setMapperName("%sMapper");
+        //Mapper xml 命名方式
         globalConfig.setXmlName("%sMapper");
+        //Mapper xml 命名方式
         globalConfig.setServiceName("%sService");
+        //service impl 命名方式
         globalConfig.setServiceImplName("%sServiceImpl");
+        //controller 命名方式
         globalConfig.setControllerName("%sController");
         return globalConfig;
     }
@@ -132,9 +140,13 @@ public class MyBatisPlusGenerator {
      */
     private static StrategyConfig initStrategyConfig(String[] tableNames) {
         StrategyConfig strategyConfig = new StrategyConfig();
+        //数据库表映射到实体的命名策略
         strategyConfig.setNaming(NamingStrategy.underline_to_camel);
+        //数据库表字段映射到实体的命名策略, 未指定按照 naming 执行
         strategyConfig.setColumnNaming(NamingStrategy.underline_to_camel);
+        //是否为lombok模型（默认 false）
         strategyConfig.setEntityLombokModel(true);
+        //生成 @RestController 控制器
         strategyConfig.setRestControllerStyle(true);
         //当表名中带*号时可以启用通配符模式
         if (tableNames.length == 1 && tableNames[0].contains("*")) {
